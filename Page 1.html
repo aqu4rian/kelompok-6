@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Petrokimia Gresik</title>
+    <style>
+        :root {
+            --primary-green: #2d6a4f;
+            --secondary-orange: #f8961e;
+            --bg-light: #f8f9fa;
+            --white: #ffffff;
+            --text-dark: #333;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            background: var(--white);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 4px solid var(--primary-green);
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            color: var(--primary-green);
+            margin: 0;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section h2 {
+            background: var(--primary-green);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .section p {
+            line-height: 1.6;
+            text-align: justify;
+        }
+
+        /* PRODUK */
+        .product-category {
+            margin-top: 20px;
+        }
+
+        .product-category h3 {
+            color: var(--secondary-orange);
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .product-card {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+            background: #fafafa;
+        }
+
+        .image-placeholder {
+            width: 100%;
+            height: 100px;
+            background: #ddd;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .nav-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 20px;
+            background-color: var(--primary-green);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+.nav-button:hover {
+    background-color: var(--primary-green);
+}
+
+        footer {
+            text-align: center;
+            font-size: 0.8em;
+            color: #888;
+            margin-top: 40px;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <header>
+        <h1>PT Petrokimia Gresik</h1>
+        <p>Profil Perusahaan</p>
+    </header>
+
+    <!-- SEJARAH -->
+    <div class="section">
+        <h2>Sejarah Petrokimia</h2>
+        <p>
+            PT Petrokimia Gresik merupakan pabrik pupuk terlengkap di Indonesia, yang pada awal berdirinya disebut Proyek Petrokimia Surabaya. 
+            Kontrak pembangunannya ditandatangani pada tanggal 10 Agustus 1964, dan mulai berlaku pada tanggal 8 Desember 1964. 
+            Proyek ini diresmikan oleh Presiden Republik Indonesia, HM. Soeharto pada tanggal 10 Juli 1972, yang kemudian tanggal tersebut ditetapkan sebagai hari jadi PT Petrokimia Gresik.
+        </p>
+        <p>
+            PT Petrokimia Gresik saat ini menempati areal lebih dari 550 hektar di Kabupaten Gresik, Jawa Timur. 
+            Total produksi saat ini mencapai 8,9 juta ton/tahun, terdiri dari produk pupuk sebesar 5 juta ton/tahun, 
+            dan produk non pupuk sebanyak 3,9 juta ton/tahun. Anak Perusahaan PT Pupuk Indonesia (Persero) ini bertransformasi 
+            menuju perusahaan Solusi Agroindustri untuk mendukung tercapainya program Ketahanan Pangan Nasional, dan kemajuan dunia pertanian.
+        </p>
+    </div>
+
+    <!-- BIDANG -->
+    <div class="section">
+        <h2>Bidang Usaha</h2>
+        <p>
+            PT Petrokimia Gresik bergerak di bidang industri pupuk, bahan kimia, dan jasa agroindustri. 
+            Sebagai anggota holding Pupuk Indonesia, perusahaan ini memproduksi berbagai jenis pupuk 
+            (terutama NPK dan ZA) dan produk non-pupuk (seperti asam fosfat dan bahan kimia industri).
+        </p>
+    </div>
+
+    <!-- PRODUK -->
+    <div class="section">
+        <h2>Produk</h2>
+
+        <!-- Pupuk -->
+        <div class="product-category">
+            <h3>Produk Pupuk</h3>
+            <div class="product-grid">
+                <div class="product-card">
+                    <div class="image-placeholder">Gambar</div>
+                    Phonska
+                </div>
+                <div class="product-card">
+                    <div class="image-placeholder">Gambar</div>
+                    ZA
+                </div>
+                <div class="product-card">
+                    <div class="image-placeholder">Gambar</div>
+                    SP-36
+                </div>
+                <div class="product-card">
+                    <div class="image-placeholder">Gambar</div>
+                    Petroganik
+                </div>
+                <div class="product-card">
+                    <div class="image-placeholder">Gambar</div>
+                    Urea
+                </div>
+            </div>
+        </div>
+
+        <!-- Kimia -->
+        <div class="product-category">
+            <h3>Produk Kimia (Non-Pupuk)</h3>
+            <div class="product-grid">
+                <div class="product-card">
+                    <div class="image-placeholder">Gambar</div>
+                    Asam Sulfat
+                </div>
+                <div class="product-card">
+                    <div class="image-placeholder">Gambar</div>
+                    Amoniak
+                </div>
+                <div class="product-card">
+                    <div class="image-placeholder">Gambar</div>
+                    Dry Ice
+                </div>
+                <div class="product-card">
+                    <div class="image-placeholder">Gambar</div>
+                    Soda Ash
+                </div>
+            </div>
+        </div>
+
+        <!-- Benih -->
+        <div class="product-category">
+            <h3>Benih & Pestisida</h3>
+            <div class="product-grid">
+                <div class="product-card">
+                    <div class="image-placeholder">Gambar</div>
+                    Benih Padi
+                </div>
+                <div class="product-card">
+                    <div class="image-placeholder">Gambar</div>
+                    Pestisida
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div style="text-align: right;">
+    <a href="page 2 contoh.html" class="nav-button">Lihat Laporan Kinerja →</a>
+    </div>
+
+    <footer>
+        Kelompok 6
+    </footer>
+
+</div>
+
+</body>
+</html>

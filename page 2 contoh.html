@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografis Kinerja Historis - Petrokimia Gresik</title>
+    <style>
+        :root {
+            --primary-green: #2d6a4f;
+            --secondary-orange: #f8961e;
+            --bg-light: #f8f9fa;
+            --white: #ffffff;
+            --text-dark: #333;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto 50px auto;
+            background: var(--white);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 4px solid var(--primary-green);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            color: var(--primary-green);
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        header p {
+            font-size: 1.1em;
+            color: #666;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: var(--white);
+            border-left: 5px solid var(--secondary-orange);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+
+        .card:hover { transform: translateY(-5px); }
+
+        .card h3 {
+            margin: 0;
+            font-size: 0.9em;
+            color: #777;
+            text-transform: uppercase;
+        }
+
+        .card .value {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: var(--primary-green);
+            margin: 10px 0;
+        }
+
+        .card .unit {
+            font-size: 0.8em;
+            color: #999;
+        }
+
+        .section-title {
+            background: var(--primary-green);
+            color: var(--white);
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+
+        /* ===== CHART BLOCK: gambar di atas, bar chart di bawah ===== */
+        .chart-block {
+            background: #f1f1f1;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            overflow: hidden;
+        }
+
+        /* Slot 1 gambar per container, full width */
+        .img-slot {
+            width: 55%;
+            height: 200px;
+            border-bottom: 2px dashed #bbb;
+            background: #e0e0e0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            overflow: hidden;
+            margin: 0 auto;           
+            position: relative;       
+            transition: background 0.3s, border-color 0.3s;
+            box-sizing: border-box;
+        }
+
+        .img-slot:hover {
+            background: #d4edda;
+            border-color: var(--primary-green);
+        }
+
+        .img-slot img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+        }
+
+        .img-slot .placeholder-icon {
+            font-size: 2.5em;
+            color: #aaa;
+            pointer-events: none;
+        }
+
+        .img-slot .placeholder-text {
+            font-size: 0.85em;
+            color: #888;
+            margin-top: 8px;
+            pointer-events: none;
+        }
+
+        .img-slot input[type="file"] {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+        }
+
+        .img-slot.has-image .placeholder-icon,
+        .img-slot.has-image .placeholder-text { display: none; }
+
+        .img-slot.has-image img { display: block; }
+
+        .img-slot.has-image::after {
+            content: "🔄 Klik untuk ganti foto";
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            background: rgba(0,0,0,0.45);
+            color: white;
+            font-size: 0.75em;
+            text-align: center;
+            padding: 5px 0;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .img-slot.has-image:hover::after { opacity: 1; }
+
+        /* Bar chart */
+        .chart-container {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            height: 220px;
+            padding: 30px 20px 20px 20px;
+            background: #f1f1f1;
+        }
+
+        .bar-group {
+            text-align: center;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            height: 100%;
+        }
+
+        .bar {
+            background: var(--secondary-orange);
+            width: 50px;
+            border-radius: 5px 5px 0 0;
+            transition: background 0.3s;
+            position: relative;
+            /* min-height agar bar selalu kelihatan */
+            min-height: 6px;
+        }
+
+        .bar:hover { background: var(--primary-green); }
+
+        .bar::after {
+            content: attr(data-value);
+            position: absolute;
+            top: -26px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.72em;
+            font-weight: bold;
+            white-space: nowrap;
+            color: #333;
+        }
+
+        .label {
+            margin-top: 10px;
+            font-size: 0.9em;
+            font-weight: bold;
+            color: #444;
+        }
+
+        footer {
+            text-align: center;
+            font-size: 0.8em;
+            color: #888;
+            margin-top: 50px;
+            border-top: 1px solid #ddd;
+            padding-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        table th, table td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        table th { background-color: #eee; }
+
+        .year-nav {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 100;
+        }
+
+        .year-nav a {
+            background: var(--primary-green);
+            color: white;
+            padding: 10px;
+            text-decoration: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.8em;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+
+<div class="year-nav">
+    <a href="#y2019">19</a>
+    <a href="#y2018">18</a>
+    <a href="#y2017">17</a>
+    <a href="#y2016">16</a>
+</div>
+
+<!-- ===================== 2019 ===================== -->
+<div class="container" id="y2019">
+    <header>
+        <h1>Laporan Kinerja Operasional &amp; Finansial</h1>
+        <p>Tahun Buku 2019 - Petrokimia Gresik</p>
+    </header>
+    <div class="summary-grid">
+        <div class="card"><h3>Total Laba Bersih</h3><div class="value">1.503.945</div><div class="unit">Rp Juta (Total 2019)</div></div>
+        <div class="card"><h3>Kuantum Produksi</h3><div class="value">7.617.296</div><div class="unit">Ton (Total 2019)</div></div>
+        <div class="card"><h3>Kuantum Penjualan</h3><div class="value">7.349.829</div><div class="unit">Ton (Total 2019)</div></div>
+        <div class="card" style="border-left-color:var(--primary-green)"><h3>Asset Terakhir (TW IV)</h3><div class="value">47.180.578</div><div class="unit">Rp Juta</div></div>
+    </div>
+
+    <h2 class="section-title">Tren Kuantum Produksi 2019 (Ton)</h2>
+    <div class="chart-block">
+        <div class="img-slot has-image">
+    <img src="Code_Generated_Image (6).jfif" alt="Foto Produksi 2019" style="display:block">
+</div>
+        <div class="chart-container">
+            <div class="bar-group"><div class="bar" style="height:84%" data-value="1.804.644"></div><div class="label">TW I</div></div>
+            <div class="bar-group"><div class="bar" style="height:85%" data-value="1.810.354"></div><div class="label">TW II</div></div>
+            <div class="bar-group"><div class="bar" style="height:87%" data-value="1.863.803"></div><div class="label">TW III</div></div>
+            <div class="bar-group"><div class="bar" style="height:100%" data-value="2.138.495"></div><div class="label">TW IV</div></div>
+        </div>
+    </div>
+
+    <h2 class="section-title">Tren Laba Bersih Per Triwulan (Rp Juta)</h2>
+    <div class="chart-block">
+        <div class="img-slot has-image">
+    <img src="Code_Generated_Imagelala.jfif" alt="Foto Produksi 2019" style="display:block">
+</div>
+        <div class="chart-container">
+            <div class="bar-group"><div class="bar" style="height:41%;background-color:#43aa8b" data-value="272.859"></div><div class="label">TW I</div></div>
+            <div class="bar-group"><div class="bar" style="height:46%;background-color:#43aa8b" data-value="305.438"></div><div class="label">TW II</div></div>
+            <div class="bar-group"><div class="bar" style="height:40%;background-color:#43aa8b" data-value="264.782"></div><div class="label">TW III</div></div>
+            <div class="bar-group"><div class="bar" style="height:100%;background-color:#43aa8b" data-value="660.866"></div><div class="label">TW IV</div></div>
+        </div>
+    </div>
+
+    <h2 class="section-title">Detail Data Finansial 2019</h2>
+    <table>
+        <thead><tr><th>Indikator (Rp Juta)</th><th>TW I</th><th>TW II</th><th>TW III</th><th>TW IV</th></tr></thead>
+        <tbody>
+            <tr><td>Nilai Penjualan</td><td>7.159.394</td><td>7.416.792</td><td>6.822.450</td><td>7.666.673</td></tr>
+            <tr><td>Total Asset</td><td>49.080.366</td><td>48.831.619</td><td>49.147.240</td><td>47.180.578</td></tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- ===================== 2018 ===================== -->
+<div class="container" id="y2018">
+    <header>
+        <h1>Laporan Kinerja Operasional &amp; Finansial</h1>
+        <p>Tahun Buku 2018 - Petrokimia Gresik</p>
+    </header>
+    <div class="summary-grid">
+        <div class="card"><h3>Total Laba Bersih</h3><div class="value">1.751.750</div><div class="unit">Rp Juta (Total 2018)</div></div>
+        <div class="card"><h3>Kuantum Produksi</h3><div class="value">6.678.902</div><div class="unit">Ton (Total 2018)</div></div>
+        <div class="card"><h3>Kuantum Penjualan</h3><div class="value">7.157.459</div><div class="unit">Ton (Total 2018)</div></div>
+        <div class="card" style="border-left-color:var(--primary-green)"><h3>Asset Terakhir (TW IV)</h3><div class="value">46.468.279</div><div class="unit">Rp Juta</div></div>
+    </div>
+
+    <h2 class="section-title">Tren Kuantum Produksi 2018 (Ton)</h2>
+    <div class="chart-block">
+        <div class="img-slot has-image">
+            <img src="Code_Generated_Image (4).jfif" alt="Foto Produksi 2018" style="display:block">
+        </div>
+        <div class="chart-container">
+            <div class="bar-group"><div class="bar" style="height:79%" data-value="1.723.330"></div><div class="label">TW I</div></div>
+            <div class="bar-group"><div class="bar" style="height:69%" data-value="1.513.469"></div><div class="label">TW II</div></div>
+            <div class="bar-group"><div class="bar" style="height:77%" data-value="1.695.854"></div><div class="label">TW III</div></div>
+            <div class="bar-group"><div class="bar" style="height:100%" data-value="1.746.249"></div><div class="label">TW IV</div></div>
+        </div>
+    </div>
+
+    <h2 class="section-title">Tren Laba Bersih Per Triwulan (Rp Juta)</h2>
+    <div class="chart-block">
+       <div class="img-slot has-image">
+    <img src="Code_Generated_Image (5).jfif" alt="Foto Produksi 2019" style="display:block">
+</div>
+        <div class="chart-container">
+            <div class="bar-group"><div class="bar" style="height:31%;background-color:#43aa8b" data-value="267.838"></div><div class="label">TW I</div></div>
+            <div class="bar-group"><div class="bar" style="height:32%;background-color:#43aa8b" data-value="276.668"></div><div class="label">TW II</div></div>
+            <div class="bar-group"><div class="bar" style="height:41%;background-color:#43aa8b" data-value="353.682"></div><div class="label">TW III</div></div>
+            <div class="bar-group"><div class="bar" style="height:100%;background-color:#43aa8b" data-value="853.562"></div><div class="label">TW IV</div></div>
+        </div>
+    </div>
+
+    <h2 class="section-title">Detail Data Finansial 2018</h2>
+    <table>
+        <thead><tr><th>Indikator (Rp Juta)</th><th>TW I</th><th>TW II</th><th>TW III</th><th>TW IV</th></tr></thead>
+        <tbody>
+            <tr><td>Nilai Penjualan</td><td>6.363.803</td><td>5.924.738</td><td>6.186.308</td><td>9.192.973</td></tr>
+            <tr><td>Total Asset</td><td>43.907.818</td><td>44.429.936</td><td>47.539.940</td><td>46.468.279</td></tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- ===================== 2017 ===================== -->
+<div class="container" id="y2017">
+    <header>
+        <h1>Laporan Kinerja Operasional &amp; Finansial</h1>
+        <p>Tahun Buku 2017 - Petrokimia Gresik</p>
+    </header>
+    <div class="summary-grid">
+        <div class="card"><h3>Total Laba Bersih</h3><div class="value">685.579</div><div class="unit">Rp Juta (Total 2017)</div></div>
+        <div class="card"><h3>Kuantum Produksi</h3><div class="value">7.567.044</div><div class="unit">Ton (Total 2017)</div></div>
+        <div class="card"><h3>Kuantum Penjualan</h3><div class="value">7.118.106</div><div class="unit">Ton (Total 2017)</div></div>
+        <div class="card" style="border-left-color:var(--primary-green)"><h3>Asset Terakhir (TW IV)</h3><div class="value">41.052.231</div><div class="unit">Rp Juta</div></div>
+    </div>
+
+    <h2 class="section-title">Tren Kuantum Produksi 2017 (Ton)</h2>
+    <div class="chart-block">
+        <div class="img-slot has-image">
+            <img src="Code_Generated_Image (1).jfif" alt="Foto Produksi 2017" style="display:block">
+        </div>
+        <div class="chart-container">
+            <div class="bar-group"><div class="bar" style="height:87%" data-value="1.854.713"></div><div class="label">TW I</div></div>
+            <div class="bar-group"><div class="bar" style="height:89%" data-value="1.893.618"></div><div class="label">TW II</div></div>
+            <div class="bar-group"><div class="bar" style="height:90%" data-value="1.923.204"></div><div class="label">TW III</div></div>
+            <div class="bar-group"><div class="bar" style="height:100%" data-value="1.895.509"></div><div class="label">TW IV</div></div>
+        </div>
+    </div>
+
+    <h2 class="section-title">Tren Laba Bersih Per Triwulan (Rp Juta)</h2>
+    <div class="chart-block">
+        <div class="img-slot has-image">
+            <img src="Code_Generated_Image.jfif" alt="Foto Laba 2017" style="display:block">
+        </div>
+        <div class="chart-container">
+            <div class="bar-group"><div class="bar" style="height:100%;background-color:#43aa8b" data-value="272.892"></div><div class="label">TW I</div></div>
+            <div class="bar-group"><div class="bar" style="height:100%;background-color:#43aa8b" data-value="280.910"></div><div class="label">TW II</div></div>
+            <div class="bar-group"><div class="bar" style="height:87%;background-color:#43aa8b" data-value="236.058"></div><div class="label">TW III</div></div>
+            <div class="bar-group"><div class="bar" style="height:36%;background-color:#e63946" data-value="-104.281"></div><div class="label">TW IV</div></div>
+        </div>
+    </div>
+
+    <h2 class="section-title">Detail Data Finansial 2017</h2>
+    <table>
+        <thead><tr><th>Indikator (Rp Juta)</th><th>TW I</th><th>TW II</th><th>TW III</th><th>TW IV</th></tr></thead>
+        <tbody>
+            <tr><td>Nilai Penjualan</td><td>6.357.515</td><td>5.066.600</td><td>4.909.803</td><td>7.307.134</td></tr>
+            <tr><td>Total Asset</td><td>40.315.485</td><td>40.910.980</td><td>41.878.670</td><td>41.052.231</td></tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- ===================== 2016 ===================== -->
+<div class="container" id="y2016">
+    <header>
+        <h1>Laporan Kinerja Operasional &amp; Finansial</h1>
+        <p>Tahun Buku 2016 - Petrokimia Gresik</p>
+    </header>
+    <div class="summary-grid">
+        <div class="card"><h3>Total Laba Bersih</h3><div class="value">10.685.188</div><div class="unit">Rp Juta (Total 2016)</div></div>
+        <div class="card"><h3>Kuantum Produksi</h3><div class="value">6.865.638</div><div class="unit">Ton (Total 2016)</div></div>
+        <div class="card"><h3>Kuantum Penjualan</h3><div class="value">6.987.481</div><div class="unit">Ton (Total 2016)</div></div>
+        <div class="card" style="border-left-color:var(--primary-green)"><h3>Asset Terakhir (TW IV)</h3><div class="value">39.944.832</div><div class="unit">Rp Juta</div></div>
+    </div>
+
+    <h2 class="section-title">Tren Kuantum Produksi 2016 (Ton)</h2>
+    <div class="chart-block">
+        <div class="img-slot has-image">
+            <img src="Code_Generated_Image (3).jfif" alt="Foto Produksi 2016" style="display:block">
+        </div>
+        <div class="chart-container">
+            <div class="bar-group"><div class="bar" style="height:86%" data-value="1.583.531"></div><div class="label">TW I</div></div>
+            <div class="bar-group"><div class="bar" style="height:92%" data-value="1.689.688"></div><div class="label">TW II</div></div>
+            <div class="bar-group"><div class="bar" style="height:95%" data-value="1.747.365"></div><div class="label">TW III</div></div>
+            <div class="bar-group"><div class="bar" style="height:100%" data-value="1.845.054"></div><div class="label">TW IV</div></div>
+        </div>
+    </div>
+
+    <h2 class="section-title">Tren Laba Bersih Per Triwulan (Rp Juta)</h2>
+    <div class="chart-block">
+        <div class="img-slot has-image">
+            <img src="Code_Generated_Image (2).jfif" alt="Foto Laba 2016" style="display:block">
+        </div>
+        <div class="chart-container">
+            <div class="bar-group"><div class="bar" style="height:5%;background-color:#43aa8b" data-value="507.992"></div><div class="label">TW I</div></div>
+            <div class="bar-group"><div class="bar" style="height:5%;background-color:#43aa8b" data-value="482.107"></div><div class="label">TW II</div></div>
+            <div class="bar-group"><div class="bar" style="height:3%;background-color:#43aa8b" data-value="323.883"></div><div class="label">TW III</div></div>
+            <div class="bar-group"><div class="bar" style="height:100%;background-color:#43aa8b" data-value="9.371.206"></div><div class="label">TW IV</div></div>
+        </div>
+    </div>
+
+    <h2 class="section-title">Detail Data Finansial 2016</h2>
+    <table>
+        <thead><tr><th>Indikator (Rp Juta)</th><th>TW I</th><th>TW II</th><th>TW III</th><th>TW IV</th></tr></thead>
+        <tbody>
+            <tr><td>Nilai Penjualan</td><td>6.922.330</td><td>6.516.132</td><td>5.396.843</td><td>6.872.159</td></tr>
+            <tr><td>Total Asset</td><td>30.751.191</td><td>30.719.578</td><td>33.645.728</td><td>39.944.832</td></tr>
+        </tbody>
+    </table>
+</div>
+<div style="text-align: right;">
+    <a href="Tugas_Web_kel6.html" class="nav-button">Lihat Laporan Kinerja →</a>
+    </div>
+
+<footer>
+    Data diolah dari Laporan Kinerja KnK Petrokimia Gresik &nbsp;|&nbsp; Sumber: pg_laporankinerjaKnK_1020.pdf
+</footer>
+
+<script>
+    function previewImage(input) {
+        const slot = input.closest('.img-slot');
+        const img = slot.querySelector('img');
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                img.src = e.target.result;
+                img.style.display = 'block';
+                slot.classList.add('has-image');
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Petrokimia Gresik</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+
+        .top-header {
+    background: linear-gradient(135deg, #2d6a4f, #40916c);
+    color: white;
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+.top-header {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+/* Logo tetap kiri */
+.top-header img {
+    width: 167px; 
+    height: auto;
+}
+}
+
+/* Judul & deskripsi jadi satu kolom di samping logo */
+.top-header h1,
+.top-header p {
+    margin: 0;
+}
+
+/* Bungkus teks ke samping */
+.top-header h1 {
+    flex: 1;
+    color: white;
+}
+
+/* Biar deskripsi ikut di bawah h1 (masih di samping logo) */
+.top-header p {
+    width: 100%;
+    margin-left: 95px; /* ini kunci: geser sejajar dengan h1 */
+}
+.top-header h1 {
+    margin: 0;
+    text-align:left;
+    font-size: 67px;
+}
+
+.top-header p {
+    margin: 5px 0 15px;
+    font-size: 14px;
+}
+
+/* NAVBAR */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+.nav-links {
+    display: flex;
+    gap: 20px;
+}
+
+.social {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    margin-right: 15px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.nav-links a:hover {
+    text-decoration: underline;
+}
+
+/* SOSIAL MEDIA */
+.social {
+    font-size: 13px;
+    margin-left:auto;
+}
+
+.social a {
+    color: #f8961e;
+    font-size: 18px;
+    margin-left: 12px;
+    transition: 0.3s;
+}
+
+.social a:hover {
+    color: white;
+    transform: scale(1.2);
+}
+        :root {
+            --primary-green: #2d6a4f;
+            --secondary-orange: #f8961e;
+            --bg-light: #f8f9fa;
+            --white: #ffffff;
+            --text-dark: #333;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            background: var(--white);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section h2 {
+            background: var(--primary-green);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .section p {
+            line-height: 1.6;
+            text-align: justify;
+        }
+
+        /* PRODUK */
+        .product-category {
+            margin-top: 20px;
+        }
+
+        .product-category h3 {
+            color: var(--secondary-orange);
+        }
+
+        .product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    }
+
+@media (max-width: 992px) {
+    .product-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .product-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+        .product-card {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+            background: #fafafa;
+            overflow: hidden; /* 🔥 biar gambar gak keluar */
+        }
+        .product-image {
+            width: 100%;
+            height: 120px; /* 🔥 samakan tinggi semua */
+            object-fit: cover; /* 🔥 potong gambar biar rapi */
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .image-placeholder {
+            width: 100%;
+            height: 100px;
+            background: #ddd;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .nav-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 20px;
+            background-color: var(--primary-green);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+.nav-button:hover {
+    background-color: var(--primary-green);
+}
+
+        footer {
+            text-align: center;
+            font-size: 0.8em;
+            color: #888;
+            margin-top: 40px;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+     <div class="top-header">
+    <img src="logo-PG-agro-trans-small.png" alt="Logo Petrokimia">
+    <h1>PT Petrokimia Gresik</h1>
+    <p>Mendukung Ketahanan Pangan Nasional melalui Inovasi Agroindustri</p>
+
+    <div class="navbar">
+        <div class="nav-links">
+            <a href="#sejarah">Sejarah</a>
+            <a href="#bidang">Bidang usaha</a>
+            <a href="#produk">Produk</a>
+        </div>
+
+        <div class="social">
+            Ikuti Kami:
+            <a href="https://www.instagram.com/petrokimiagresik_official?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw== target="_blank""><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="https://petrokimia-gresik.com/""><i class="fas fa-globe"></i></a>
+        </div>
+    </div>
+</div>
+
+    <!-- SEJARAH -->
+    <div class="section" id="sejarah">
+        <h2>Sejarah Petrokimia</h2>
+        <p>
+            PT Petrokimia Gresik merupakan pabrik pupuk terlengkap di Indonesia, yang pada awal berdirinya disebut Proyek Petrokimia Surabaya. 
+            Kontrak pembangunannya ditandatangani pada tanggal 10 Agustus 1964, dan mulai berlaku pada tanggal 8 Desember 1964. 
+            Proyek ini diresmikan oleh Presiden Republik Indonesia, HM. Soeharto pada tanggal 10 Juli 1972, yang kemudian tanggal tersebut ditetapkan sebagai hari jadi PT Petrokimia Gresik.
+        </p>
+        <p>
+            PT Petrokimia Gresik saat ini menempati areal lebih dari 550 hektar di Kabupaten Gresik, Jawa Timur. 
+            Total produksi saat ini mencapai 8,9 juta ton/tahun, terdiri dari produk pupuk sebesar 5 juta ton/tahun, 
+            dan produk non pupuk sebanyak 3,9 juta ton/tahun. Anak Perusahaan PT Pupuk Indonesia (Persero) ini bertransformasi 
+            menuju perusahaan Solusi Agroindustri untuk mendukung tercapainya program Ketahanan Pangan Nasional, dan kemajuan dunia pertanian.
+        </p>
+    </div>
+
+    <!-- BIDANG -->
+    <div class="section" id="bidang">
+        <h2>Bidang Usaha</h2>
+        <p>
+            PT Petrokimia Gresik bergerak di bidang industri pupuk, bahan kimia, dan jasa agroindustri. 
+            Sebagai anggota holding Pupuk Indonesia, perusahaan ini memproduksi berbagai jenis pupuk 
+            (terutama NPK dan ZA) dan produk non-pupuk (seperti asam fosfat dan bahan kimia industri).
+        </p>
+    </div>
+
+    <!-- PRODUK -->
+    <div class="section" id="produk">
+        <h2>Produk</h2>
+
+        <!-- Pupuk -->
+        <div class="product-category">
+            <h3>Produk Pupuk</h3>
+            <div class="product-grid">
+                <div class="product-card">
+                   <img src="pupuk sp-36 petro.png" alt="SP-36" class="product-image">
+                    SP-36
+                </div>
+                <div class="product-card">
+                    <img src="pupuk npk phonska.jpg.jpeg" alt="Ponshka" class="product-image">
+                    Ponshka
+                </div>
+                <div class="product-card">
+                    <img src="pupuk petroganik.png" alt="Petroganik" class="product-image">
+                    Petroganik
+                </div>
+                <div class="product-card">
+                   <img src="pupuk ZA subsidi.png" alt="Za Subsidi" class="product-image">
+                    ZA Subsidi
+                </div>
+                <div class="product-card">
+                    <img src="pupuk urea subsidi.png" alt="Urea SUbsidi" class="product-image">
+                    Urea Subsidi
+                </div>
+                <div class="product-card">
+                    <img src="pupuk phonska plus.png" alt="Phonska Plus" class="product-image">
+                    Phonska Plus
+                </div>
+                <div class="product-card">
+                    <img src="pupuk npk kebomas.jpg.jpeg" alt="NPK Kebomas " class="product-image">
+                    Spesifikasi Komoditi(kebomas)
+                </div>
+                <div class="product-card">
+                    <img src="pupuk zk petro.png" alt="ZK Petro " class="product-image">
+                    Zk Petro
+                </div>
+                <div class="product-card">
+                    <img src="pupuk ZA petro.png" alt="ZA Petro" class="product-image">
+                    ZA Petro
+                </div>
+                <div class="product-card">
+                    <img src="pupuk urea non subsidi.jpeg" alt="Urea Non Subsidi " class="product-image">
+                    Urea Non Subsidi
+                </div><div class="product-card">
+                    <img src="pupuk petro niphos.png" alt="Petro Niphos" class="product-image">
+                    Petro niphos
+                </div>
+                <div class="product-card">
+                    <img src="pupuk petro ningrat.png" alt="Petro Ningrat" class="product-image">
+                    Petro Ningrat
+                </div>
+                <div class="product-card">
+                    <img src="pupuk petro nitrat.png" alt="Petro Nitrat" class="product-image">
+                    Petro Nitrat
+                </div>
+                <div class="product-card">
+                    <img src="pupuk phonska alam.png" alt="Phonska Alam" class="product-image">
+                    Phonska Alam
+                </div>
+                <div class="product-card">
+                    <img src="pupuk sp-36 petro.png" alt=" " class="product-image">
+                    Petro SP-6
+                </div>
+                <div class="product-card">
+                    <img src="pupuk ZA plus.png" alt="ZA Plus " class="product-image">
+                    ZA Plus
+                </div>
+                <div class="product-card">
+                    <img src="pupuk fosfat phosgreen.png" alt="Phosgreen" class="product-image">
+                    Phosgreen
+                </div>
+                <div class="product-card">
+                    <img src="pupuk petroganik premium.png" alt="petroganik Premium" class="product-image">>
+                    Petroganik Premium
+                </div>
+                <div class="product-card">
+                    <img src="pupuk bio fertil.png" alt="Petro Bio Fertil " class="product-image">
+                    Petro Bio Fertil
+                </div>
+                <div class="product-card">
+                    <img src="pupuk sp-36 petro.png" alt="petro SP 36 " class="product-image">
+                    Petro SP-36
+                </div>
+                
+                
+            </div>
+        </div>
+
+        <!-- Kimia -->
+        <div class="product-category">
+            <h3>Produk Kimia (Non-Pupuk)</h3>
+            <div class="product-grid">
+                <div class="product-card">
+                    <img src="ASAM SULFAT.jpg" alt="ASam Sulfat " class="product-image">
+                    Asam Sulfat
+                </div>
+                <div class="product-card">
+                    <img src="bahan kimia petrokimia.jpg.jpeg" alt="Bahan Kimia " class="product-image">
+                    Bahan kimia
+                </div>
+                <div class="product-card">
+                    <img src="jasa petrokimia.jpg.jpeg" alt="Jasa " class="product-image">
+                    Jasa
+                </div>
+                <div class="product-card">
+                    <img src="kapur pertanian kebomas.png" alt="Kapur Pertanian" class="product-image">
+                    Kapur Pertanian Kebomas
+                </div>
+                <div class="product-card">
+                    <img src="petro biofeed.png" alt="petrobiofeed" class="product-image">
+                    Petro biofeed
+                </div>
+                <div class="product-card">
+                    <img src="pembenah tanah kalsium sufat petro-cas.png" alt="Petro-CAS " class="product-image">
+                    Petro-CAS
+                </div>
+                <div class="product-card">
+                    <img src="petro chick.png" alt="Petro Chick" class="product-image">
+                    Petro-Chick
+                </div>
+                <div class="product-card">
+                    <img src="petrofish.png" alt="petrofish" class="product-image">
+                    Petrofish
+                </div>
+                <div class="product-card">
+                    <img src="petro gladiator.png" alt="Petro Gladiator" class="product-image">
+                    Petro gladiator
+                </div>
+                <div class="product-card">
+                    <img src="petro ponic.png" alt="Petroponic " class="product-image">
+                    Petro Ponic
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <div style="text-align: right;">
+    <a href="page 2 contoh.html" class="nav-button">Lihat Laporan Kinerja →</a>
+    </div>
+
+    <footer>
+        Kelompok 6
+    </footer>
+
+</div>
+
+</body>
+</html>
